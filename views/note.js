@@ -1,8 +1,9 @@
 import twas from "twas";
 import Note from "./_note.js";
+import { html } from "ucontent";
 
-const indexView = (html, { notes }) => {
-  notes.map(note => (note.time = new Date(note.timestamp)));
+const indexView = ({ notes }) => {
+  notes.map((note) => (note.time = new Date(note.timestamp)));
   const firstNote = notes[0];
   return html`
     <!DOCTYPE html>
@@ -34,7 +35,7 @@ const indexView = (html, { notes }) => {
       <body>
         <main>
           <section class="notes large">
-            ${notes.map(note => Note(html, { note }))}
+            ${notes.map((note) => Note({ note }))}
           </section>
         </main>
       </body>

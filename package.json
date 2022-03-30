@@ -7,25 +7,17 @@
     "start": "node -r esm server.js"
   },
   "dependencies": {
-    "sqlite3": "^4.1.1",
+    "body-parser": "^1.19.2",
     "esm": "^3.2.25",
-    "knex": "^0.20.7",
-    "viperhtml": "^2.17.1",
-    "twas": "^2.1.1",
-    "restana": "^4.0.4",
-    "sirv": "^0.4.2",
-    "body-parser": "^1.19.0"
-  },
-  "engines": {
-    "node": "12.x"
+    "knex": "^0.20.15",
+    "restana": "^4.9.3",
+    "sirv": "^0.4.6",
+    "sqlite3": "^4.2.0",
+    "twas": "^2.1.2",
+    "ucontent": "^2.0.0"
   },
   "repository": {
     "url": "https://glitch.com/edit/#!/hello-sqlite"
   },
-  "license": "MIT",
-  "keywords": [
-    "node",
-    "glitch",
-    "express"
-  ]
+  "license": "MIT"
 }

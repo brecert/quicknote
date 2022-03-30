@@ -1,16 +1,17 @@
 import Knex from "knex";
-import viperHTML from "viperhtml";
 import ana from "restana";
 import sirv from "sirv";
 import bodyParser from "body-parser";
 
+import { html, render } from "ucontent";
+
 import indexView from "./views/index.js";
 import noteView from "./views/note.js";
- 
+
 const assets = sirv("public", {
   dev: true,
   maxAge: 31536000, // 1Y
-  immutable: true
+  immutable: true,
 });
 
 const app = ana();
@@ -21,9 +22,9 @@ app.use(assets);
 const knex = Knex({
   client: "sqlite3",
   connection: {
-    filename: "./.data/sqlite.db"
+    filename: "./.data/sqlite.db",
   },
-  useNullAsDefault: true
+  useNullAsDefault: true,
 });
 
 const redirect = (res, location) => {
@@ -34,7 +35,7 @@ const redirect = (res, location) => {
 async function main() {
   // await knex.schema.dropTable("notes")
   if (!(await knex.schema.hasTable("notes"))) {
-    await knex.schema.createTable("notes", function(table) {
+    await knex.schema.createTable("notes", function (table) {
       table.increments("id");
       table.string("note");
       table.string("name");
@@ -43,12 +44,12 @@ async function main() {
   }
 
   app.get("/note/:id", async (req, res) => {
-    const note = await knex("notes")
-      .where("id", req.params.id)
-      .first();
-    res.send(noteView(viperHTML.wire(), { notes: [note] }), 200, {
-      "Content-Type": "text/html; charset=utf-8"
-    });
+    const note = await knex("notes").where("id", req.params.id).first();
+    render(res, noteView({ notes: [note] })).end();
+
+    // res.send(noteView({ notes: [note] }), 200, {
+    //   "Content-Type": "text/html; charset=utf-8",
+    // });
   });
 
   app.post("/note", (req, res) => {
@@ -64,9 +65,9 @@ async function main() {
       .insert({
         name: req.body.name,
         note: req.body.note,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       })
-      .then(_ => redirect(res, "/"));
+      .then((_) => redirect(res, "/"));
   });
 
   app.get("/notes", async (req, res) => {
@@ -74,9 +75,7 @@ async function main() {
   });
 
   app.get("/notes/:id", async (req, res) => {
-    const note = await knex("notes")
-      .where("id", req.params.id)
-      .first();
+    const note = await knex("notes").where("id", req.params.id).first();
     if (!note) {
       res.send(Error(`note ${req.params.id} does not exist`));
     }
@@ -85,14 +84,15 @@ async function main() {
 
   app.get("/", async (req, res) => {
     const notes = await knex("notes");
-    res.send(indexView(viperHTML.wire(), { notes: notes.reverse() }), 200, {
-      "Content-Type": "text/html; charset=utf-8"
-    });
+    render(res, indexView({ notes: notes.reverse() })).end();
+    // res.send(indexView({ notes: notes.reverse() }), 200, {
+    //   "Content-Type": "text/html; charset=utf-8",
+    // });
   });
 
   app
     .start()
-    .then(server => console.log(`listening on ${server.address().port}`));
+    .then((server) => console.log(`listening on ${server.address().port}`));
 }
 
 main();

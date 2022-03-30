@@ -1,17 +1,12 @@
 import twas from "twas";
+import { html } from "ucontent";
 
-const indexView = (html, { notes }) => html`
+const indexView = ({ notes }) => html`
   <!DOCTYPE html>
   <html lang="en">
     <head>
       <title>QuickNote</title>
-      <meta name="description" content="A cool thing made with Glitch" />
-      <link
-        id="favicon"
-        rel="icon"
-        href="https://glitch.com/edit/favicon-app.ico"
-        type="image/x-icon"
-      />
+      <meta name="description" content="A simple public notes page" />
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -54,7 +49,7 @@ const indexView = (html, { notes }) => html`
         <section class="notes">
           <h2>Notes: ${notes.length}</h2>
           ${notes.map(
-            note =>
+            (note) =>
               html`
                 <article class="note-container">
                   <details>

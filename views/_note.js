@@ -1,6 +1,7 @@
 import twas from "twas";
+import { html } from "ucontent";
 
-export default (html, { note }) => html`
+export default ({ note }) => html`
   <article class="note-container">
     <p class="info">
       <span class="name"><b>${note.name}</b></span>
@@ -11,7 +12,7 @@ export default (html, { note }) => html`
               weekday: "long",
               year: "numeric",
               month: "long",
-              day: "numeric"
+              day: "numeric",
             })}</time
           ></small
         ></span
