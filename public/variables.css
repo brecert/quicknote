@@ -1,0 +1,10 @@
+:root {    
+  --primary-color: #9b4dca;
+  --secondary-color: #606c76;  
+  --inactive-color: #d1d1d1;
+  --subtle-color: #f4f5f6;
+  --subtler-color: #fff;
+  --line-width: 0.1rem;
+  /* default: var(--subtle-color) */
+  --line-color: #e4e5e6
+}
