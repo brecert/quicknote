@@ -1,22 +1,32 @@
-body {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
+body.index {
+  max-width: 1080px;
+  margin: auto;
+}
+
+body.index main {
+  display: grid;
+  grid: 1fr / 1fr 2fr;
+  gap: 2ch;
+}
+
+li {
+  list-style: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+header {
+  display: flex;
+  place-items: baseline;
+  gap: 1ch;
 }
 
 header,
 footer,
 main {
   margin: 10px;
-}
-
-header,
-footer {
-	flex-shrink: 0;
-}
-
-main {
-	flex-grow: 1;
 }
 
 details {
@@ -62,6 +72,11 @@ article + article {
 }
 
 @media (max-aspect-ratio: 4/5) {
+  body.index main {
+    display: flex;
+    flex-direction: column;
+  }
+
   .notes.large .note-container .info {
     white-space: pre-line;
   }

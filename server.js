@@ -3,7 +3,7 @@ import ana from "restana";
 import sirv from "sirv";
 import bodyParser from "body-parser";
 
-import { html, render } from "ucontent";
+import { render } from "ucontent";
 
 import indexView from "./views/index.js";
 import noteView from "./views/note.js";
@@ -46,10 +46,6 @@ async function main() {
   app.get("/note/:id", async (req, res) => {
     const note = await knex("notes").where("id", req.params.id).first();
     render(res, noteView({ notes: [note] })).end();
-
-    // res.send(noteView({ notes: [note] }), 200, {
-    //   "Content-Type": "text/html; charset=utf-8",
-    // });
   });
 
   app.post("/note", (req, res) => {
@@ -85,9 +81,6 @@ async function main() {
   app.get("/", async (req, res) => {
     const notes = await knex("notes");
     render(res, indexView({ notes: notes.reverse() })).end();
-    // res.send(indexView({ notes: notes.reverse() }), 200, {
-    //   "Content-Type": "text/html; charset=utf-8",
-    // });
   });
 
   app
